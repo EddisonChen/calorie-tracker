@@ -2,11 +2,7 @@ import './BodyStats.scss'
 import { useState, useEffect } from 'react'
 
 const BodyStats = (props) => {
-    const [sex, setSex] = useState()
-    const [age, setAge] = useState()
-    const [weight, setWeight] = useState()
-    const [height, setHeight] = useState()
-    const [activity, setActivity] = useState()
+
     const [bf, setBf] = useState()
 
     const bodyStats = {
@@ -22,15 +18,6 @@ const BodyStats = (props) => {
         bodyStats[event.target.name] = event.target.value
         console.log(bodyStats)
     }
-
-    const determineSex = (event) => {
-        bodyStats[event.target.name] = event.target.value
-        console.log(bodyStats)
-    }
-
-    // const selectSex = () => {
-    //     if (bodyStats[sex] =
-    // }
 
     const calculateCalories = () => {
 
