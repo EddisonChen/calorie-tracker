@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 const BodyStats = (props) => {
 
-    const [bf, setBf] = useState()
     const [calculatedCalories, setCalculatedCalories] = useState()
     const [output, setOutput] = useState('')
 
@@ -26,16 +25,42 @@ const BodyStats = (props) => {
         console.log(bodyStats)
     }
 
-    const calculateCalories = () => {
+    const convertUnits = () => {
         if (bodyStats["unitType"] == "imperial") {
             bodyStats["weight"] = bodyStats["weight"]/2.205
             bodyStats["height"] = bodyStats["height"] * 2.54
         }
+    }
+    
+    const numerifyActivityLevel = () => {
+        switch(bodyStats["activityLevel"]) {
+            case "sedentary":
+                bodyStats["activityLevel"] = 1.2;
+                break;
+            case "lightly active":
+                bodyStats["activityLevel"] = 1.375;
+                break;
+            case "moderately active":
+                bodyStats["activityLevel"] = 1.55;
+                break;
+            case "active":
+                bodyStats["activityLevel"] = 1.725;
+                break;
+            case "highly active":
+                bodyStats["activityLevel"] = 1.9;
+                break;
+            default:
+        }
+    }
+
+    const calculateCalories = () => {
+        convertUnits()
         if (bodyStats["unitType"] !== null || bodyStats["sex"] !== null || bodyStats["age"] !== null || bodyStats["weight"] !== null || bodyStats["height"] !== null || bodyStats["activityLevel"] !== null) {
             if (bodyStats["bodyFatPercentage"] == null) {
+                numerifyActivityLevel()
                 let sexValue = null;
                 bodyStats["sex"] == "male" ? sexValue = 5 : sexValue = -151;
-                setCalculatedCalories(Math.round((10*bodyStats["weight"]) + (6.25*bodyStats["height"]) - 5*bodyStats["age"] - sexValue))
+                setCalculatedCalories(Math.round(bodyStats["activityLevel"] * ((10*bodyStats["weight"]) + (6.25*bodyStats["height"]) - 5*bodyStats["age"] - sexValue)))
             } else {
                 const leanBodyMass = (1 - bodyStats["bodyFatPercentage"]/10) * bodyStats["weight"]
                 setCalculatedCalories(Math.round(370 + (21.6 * leanBodyMass)))
@@ -71,8 +96,8 @@ const BodyStats = (props) => {
                     <input onClick={setBodyStats} type="radio" name="activityLevel" value="sedentary"></input>Sedentary
                     <input onClick={setBodyStats} type="radio" name="activityLevel" value="lightly active"></input>Lightly Active
                     <input onClick={setBodyStats} type="radio" name="activityLevel" value="moderately active"></input>Moderately Active
+                    <input onClick={setBodyStats} type="radio" name="activityLevel" value="active"></input>Active
                     <input onClick={setBodyStats} type="radio" name="activityLevel" value="highly active"></input>Highly Active
-                    <input onClick={setBodyStats} type="radio" name="activityLevel" value="athlete"></input>Athlete
                 <button onClick={calculateCalories}>Submit</button>
             </div>
             <div>
