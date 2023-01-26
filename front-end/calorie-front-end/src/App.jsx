@@ -4,7 +4,7 @@ import BodyStats from "../src/containers/BodyStats/BodyStats"
 function App() {
   return (
     <body>
-        <h1>Calorie Calculator</h1>
+        <h1>Home</h1>
         <BodyStats/>
     </body>
   );
@@ -13,7 +13,7 @@ function App() {
 export default App;
 
 // core features
-// fetch request to pull calorie information from searched foods
-// pull information from restaurants
-// calculate tdee and your calories that you want to eat based on bodily stats
-// track macro/micronutrients
+// calculate tdee and your calories that you want to eat based on bodily stats, ideal macro and micronutrients, cutting, bulking, maintaining
+// determine ideal weight, BMI, maximum muscular potential
+// enter in max lifts, calculate strength score // symmetric sterngth type thing
+// look up foods in a database // restaurants and foods
