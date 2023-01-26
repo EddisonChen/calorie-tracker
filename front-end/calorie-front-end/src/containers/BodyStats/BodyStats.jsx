@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 const BodyStats = (props) => {
 
     const [calculatedCalories, setCalculatedCalories] = useState()
-    const [output, setOutput] = useState('')
+    const [output, setOutput] = useState()
 
     const bodyStats = {
         "unitType" : null,
@@ -43,7 +43,6 @@ const BodyStats = (props) => {
                 const leanBodyMass = (1 - bodyStats["bodyFatPercentage"]/10) * bodyStats["weight"]
                 setCalculatedCalories(Math.round(370 + (21.6 * leanBodyMass)))
             }
-        
         } else {
             setOutput("Hey, fill out all the forms")
         }
@@ -56,7 +55,6 @@ const BodyStats = (props) => {
     }
 
     useEffect(determineDisplayedMessage, [calculatedCalories])
-
 
     return (
         <div>
